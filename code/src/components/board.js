@@ -1,5 +1,8 @@
-import React from 'react';
-export default function Board({ size }) {
+import React, { useState } from "react";
+import BoardPiece from "./board-piece";
+
+export default function Board({ size, pieceShape, pieceColor }) {
+  //const [boardPieceColor, setPieceColor] = useState("");
   return (
     <p>
       <div>{renderBoard(size)}</div>
@@ -18,7 +21,7 @@ export default function Board({ size }) {
       let row = [];
       for (let j = 1; j <= size; j++) {
         let bgColor = "";
-        if ((i + j) % 2 === 0) {
+        if ((i + j) % 2 == 0) {
           bgColor = "black";
         } else {
           bgColor = "white";
@@ -29,8 +32,19 @@ export default function Board({ size }) {
               backgroundColor: bgColor,
               height: size * 10 + "px",
               width: size * 10 + "px",
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
             }}
-          ></div>
+          >
+            {i < 3 || i > size - 2 ? (
+              <BoardPiece
+                boardSize={size}
+                shape={pieceShape}
+                color={pieceColor}
+              />
+            ) : null}
+          </div>
         );
       }
       view.push(
